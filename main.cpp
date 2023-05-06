@@ -1,24 +1,22 @@
 #include "head.h"
 
-int main() {
-    Massive a(5, 10);
-    Massive b(5, 10);
 
-    a.setValues();
+int main(){
+    Complex a(3, 4);
+    Complex b(10, 20);
     a.print();
 
-    b.copyMas(a);
-    b.print();
-
-    a.append(-100);
+    a.sum(b);
     a.print();
 
-    a.mulc(2);
+    a.dif(b);
     a.print();
 
-    cout << a.getDif() << endl;
+    a.mul(b);
+    a.print();
 
-    cout << a.getAllMul() << endl;
+    a.div(b);
+    a.print();
 
     return 0;
 }

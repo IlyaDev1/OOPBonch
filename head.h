@@ -1,85 +1,61 @@
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 
-class Massive{
+class Complex{
 private:
-    int minIndex = 0;
-    int maxIndex = 0;
-    int *mas = new int[maxIndex];
+    float d;
+    float m;
+    float mod;
 
 public:
-    Massive(int minIndex, int maxIndex){
-        this->minIndex = minIndex;
-        this->maxIndex = maxIndex;
-        this->mas = new int[maxIndex];
-        for (int i=0; i<maxIndex; i++){
-            mas[i] = 0;
-        }
-        cout << this << endl;
+    Complex(float valueD, float valueM){
+        this->d = valueD;
+        this->m = valueM;
+        this->mod = sqrt(d * d + m * m);
+        cout << this << " " << mod << endl;
     }
 
-    void setValues(){
-        for (int i=0; i<this->maxIndex; i++){
-            cin >> this->mas[i];
-        }
+    void setMod(){
+        this->mod = sqrt(d * d + m * m);
     }
 
     void print(){
-        for (int i=0; i<maxIndex; i++){
-            cout << mas[i] << " ";
-        }
-        cout << endl;
+        cout << d << " + " << m << "i mod=" << mod << endl;
     }
 
-    void copyMas(Massive & object){
-        for (int i=0; i<this->maxIndex; i++){
-            this->mas[i] = object.mas[i];
-        }
+    void setValues(float valueD, float valueM){
+        this->d = valueD;
+        this->m = valueM;
+        setMod();
     }
 
-    void append(int value) {
-        this->maxIndex += 1;
-        int *newmas = new int[this->maxIndex];
-        for (int i = 0; i < this->maxIndex; i++) {
-            newmas[i] = this->mas[i];
-        }
-        newmas[this->maxIndex-1] = value;
-
-        delete[] this->mas;
-        this->mas = new int[this->maxIndex];
-        this->mas = newmas;
+    void sum(Complex & object){
+        this->m += object.m;
+        this->d += object.d;
+        setMod();
     }
 
-    void mulc(int value){
-        for (int i=0; i<maxIndex; i++){
-            this->mas[i] *= value;
-        }
+    void dif(Complex & object){
+        this->m -= object.m;
+        this->d -= object.d;
+        setMod();
     }
 
-    int getDif(){
-        int nmax = mas[0]; int nmin = mas[0];
-        for (int i=0; i<maxIndex; i++){
-            if (nmax < mas[i]){
-                nmax = mas[i];
-            }
-
-            if (nmin > mas[i]){
-                nmin = mas[i];
-            }
-        }
-        return nmax - nmin;
+    void mul(Complex & object){
+        this->d = d * object.d - m * object.m;
+        this->m = d * object.m + m * object.d;
+        setMod();
     }
 
-    int getAllMul(){
-        int m = 1;
-        for (int i=0; i<maxIndex; i++){
-            m *= mas[i];
-        }
-        return m;
+    void div(Complex & object){
+        this->d = (d * object.d + m * object.m) / (object.d * object.d + object.m * object.m);
+        this->m = (m * object.d - d * object.m) / (object.d * object.d + object.m * object.m);
+        setMod();
     }
 
-    ~Massive(){
+    ~Complex(){
         cout << this << endl;
     }
 };
