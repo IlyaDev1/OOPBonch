@@ -1,22 +1,39 @@
 #include "head.h"
 
 
+void decoration(){
+    for (int i=0; i<20; i++){
+        cout << "=";
+    }
+    cout << endl;
+}
+
+
 int main(){
-    Complex a(3, 4);
-    Complex b(10, 20);
-    a.print();
+    decoration();
+    ClientBank user1;
+    ClientBank user2("tinkoff");
+    ClientBank user3("sber", 100);
+    ClientBank user4(user2);
+    ClientBank user5 = user3;
+    decoration();
 
-    a.sum(b);
-    a.print();
+    decoration();
+    user1.print();
+    user2.print();
+    user3.print();
+    user4.print();
+    user5.print();
+    decoration();
 
-    a.dif(b);
-    a.print();
-
-    a.mul(b);
-    a.print();
-
-    a.div(b);
-    a.print();
+    decoration();
+    cout << user3.getBankName() << endl;
+    cout << user3.getClientBalance() << endl;
+    user3.setBankName("NewTestBank");
+    user3.setClientBalance(99999);
+    cout << user3.getBankName() << endl;
+    cout << user3.getClientBalance() << endl;
+    decoration();
 
     return 0;
 }

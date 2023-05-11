@@ -1,61 +1,94 @@
 #include <iostream>
-#include <cmath>
 using namespace std;
 
 
-class Complex{
+class ClientBank{
 private:
-    float d;
-    float m;
-    float mod;
+    string BankName;
+    class ClientBalance{
+    private:
+        float Balance;
+
+    public:
+        ClientBalance(){
+            this->Balance = 0;
+            cout << "Balance: " << this << endl;
+        }
+
+        ClientBalance(float value){
+            this->Balance = value;
+            cout << "Balance: " << this << endl;
+        }
+
+        ClientBalance & operator =(ClientBalance & object){
+            this->Balance = object.Balance;
+            cout << "Balance: " << this << endl;
+        }
+
+        float getBalance(){
+            return Balance;
+        }
+
+        void setBalance(float value){
+            this->Balance = value;
+        }
+
+        void print(){
+            cout << "Balance: " << Balance << endl;
+        }
+
+        ~ClientBalance(){
+            cout << "Balance: " << this << endl;
+        }
+    };
+    ClientBalance CliBalance;
 
 public:
-    Complex(float valueD, float valueM){
-        this->d = valueD;
-        this->m = valueM;
-        this->mod = sqrt(d * d + m * m);
-        cout << this << " " << mod << endl;
+    ClientBank(){
+        this->BankName = "Bank";
+        cout << "Bank: " << this << endl;
     }
 
-    void setMod(){
-        this->mod = sqrt(d * d + m * m);
+    ClientBank(string name, float BalanceValue=0){
+        this->BankName = name;
+        CliBalance.setBalance(BalanceValue);
+        cout << "Bank: " << this << endl;
+    }
+
+    ClientBank(ClientBank & object){
+        this->BankName = object.BankName;
+        this->CliBalance.setBalance(object.CliBalance.getBalance());
+        cout << "Bank: " << this << endl;
+    }
+
+    ClientBank & operator =(ClientBank & object){
+        this->BankName = object.BankName;
+        this->CliBalance.setBalance(object.CliBalance.getBalance());
+        cout << "Bank: " << this << endl;
+    }
+
+    string getBankName(){
+        return BankName;
+    }
+
+    float getClientBalance(){
+        return CliBalance.getBalance();
+    }
+
+    void setBankName(string name){
+        this->BankName = name;
+    }
+
+    void setClientBalance(float ClientBalanceValue){
+        this->CliBalance.setBalance(ClientBalanceValue);
     }
 
     void print(){
-        cout << d << " + " << m << "i mod=" << mod << endl;
+        cout << "Bank: " << BankName << endl;
+        CliBalance.print();
     }
 
-    void setValues(float valueD, float valueM){
-        this->d = valueD;
-        this->m = valueM;
-        setMod();
-    }
-
-    void sum(Complex & object){
-        this->m += object.m;
-        this->d += object.d;
-        setMod();
-    }
-
-    void dif(Complex & object){
-        this->m -= object.m;
-        this->d -= object.d;
-        setMod();
-    }
-
-    void mul(Complex & object){
-        this->d = d * object.d - m * object.m;
-        this->m = d * object.m + m * object.d;
-        setMod();
-    }
-
-    void div(Complex & object){
-        this->d = (d * object.d + m * object.m) / (object.d * object.d + object.m * object.m);
-        this->m = (m * object.d - d * object.m) / (object.d * object.d + object.m * object.m);
-        setMod();
-    }
-
-    ~Complex(){
-        cout << this << endl;
+    ~ClientBank(){
+        cout << "Bank: " << this << endl;
     }
 };
