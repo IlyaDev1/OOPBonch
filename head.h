@@ -3,10 +3,10 @@ using namespace std;
 
 
 class ClientBank{
-private:
+protected:
     string BankName;
     class ClientBalance{
-    private:
+    protected:
         float Balance;
 
     public:
@@ -90,5 +90,68 @@ public:
 
     ~ClientBank(){
         cout << "Bank: " << this << endl;
+    }
+};
+
+
+class SavingAccount : public ClientBank{
+private:
+    float SavingBalance;
+    bool OutputPermission = false;
+
+public:
+    SavingAccount(){
+        this->SavingBalance = 0;
+        cout << "SavingAccount: " << this << endl;
+    }
+
+    SavingAccount(float value, string name="Bank", float BalanceOfClient=0){
+        this->SavingBalance = value;
+        this->BankName = name;
+        this->CliBalance.setBalance(BalanceOfClient);
+        cout << "SavingAccount: " << this << endl;
+    }
+
+    SavingAccount(SavingAccount & object){
+        this->SavingBalance = object.SavingBalance;
+        this->BankName = object.BankName;
+        this->CliBalance.setBalance(object.CliBalance.getBalance());
+        cout << "SavingAccount: " << this << endl;
+    }
+
+    SavingAccount & operator =(SavingAccount & object){
+        this->SavingBalance = object.SavingBalance;
+        this->BankName = object.BankName;
+        this->CliBalance.setBalance(object.CliBalance.getBalance());
+        cout << "SavingAccount: " << this << endl;
+    }
+
+    void setPermission(bool value){
+        this->OutputPermission = value;
+        cout << "for output you need to wait a day" << endl;
+    }
+
+    float getSavingBalance(){
+        return SavingBalance;
+    }
+
+    void setSavingBalance(float value){
+        if (not OutputPermission){
+            cout << "operation is not available" << endl;
+        }
+        else{
+            this->SavingBalance = value;
+            OutputPermission = false;
+        }
+    }
+
+    void printSA(){
+        cout << "Saving Balance: " << SavingBalance << endl;
+        cout << "OutputPermission: " << OutputPermission << endl;
+        print();
+    }
+
+    ~SavingAccount(){
+        cout << this << endl;
     }
 };

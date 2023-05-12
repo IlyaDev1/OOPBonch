@@ -35,5 +35,23 @@ int main(){
     cout << user3.getClientBalance() << endl;
     decoration();
 
+    cout << endl << endl << endl;
+
+    decoration();
+    SavingAccount a1;
+    SavingAccount a2(12300, "tinkoff", 20000);
+    SavingAccount a3(a2);
+    SavingAccount a4 = a1;
+    decoration();
+
+    decoration();
+    a2.printSA();
+    a2.setPermission(true);
+    a2.setSavingBalance(123456);
+    cout << a2.getSavingBalance() << endl;
+    a2.setSavingBalance(123);
+    a2.printSA();
+    decoration();
+
     return 0;
 }
