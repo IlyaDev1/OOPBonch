@@ -52,12 +52,12 @@ public:
         return S;
     }
 
-    void print(){
-        cout << "D: " << D << "  ||  " << "S: " << S << "  ||  ";
+    virtual void print(){
+        cout << "D: " << D << "  ||  " << "S: " << S << "  ||  " << endl;
     }
 
     ~COne(){
-        cout << "deleted: " << this << endl;
+        cout << "deleted1: " << this << endl;
     }
 };
 
@@ -88,6 +88,7 @@ public:
 
     CTwo & operator =(const CTwo & object){
         this->N = object.N;
+
         this->One = new COne(*object.One);
         cout << "created2: " << this << endl;
     }
@@ -104,14 +105,62 @@ public:
     double getD();
     string getS();
 
-    void print(){
+    virtual void print(){
         One->print();
         cout << "N: " << N << endl;
     }
 
-    ~CTwo(){
+    virtual ~CTwo(){
         delete One;
         cout << "deleted2: " << this << endl;
+    }
+};
+
+
+class CThree : public CTwo{
+protected:
+    int Num;
+
+public:
+    CThree(){
+        this->Num = 0;
+        cout << "created3: " << this << endl;
+    }
+
+    CThree(int value, int n=0, double d=0, string s="") : CTwo(n, d, s){
+        this->Num=n;
+        cout << "created3: " << this << endl;
+    }
+
+    CThree(const CThree & object){
+        this->Num = object.Num;
+        this->N = object.N;
+        this->One = new COne(*object.One);
+        cout << "created3: " << this << endl;
+    }
+
+    CThree & operator =(const CThree & object){
+        this->Num = object.Num;
+        this->N = object.N;
+        this->One = new COne(*object.One);
+        cout << "created3: " << this << endl;
+    }
+
+    int getNum(){
+        return Num;
+    }
+
+    void setNum(int value){
+        this->Num = value;
+    }
+
+    void print() override{
+        cout << "Num: " << Num << endl << "N: " << N << endl;
+        One->print();
+    }
+
+    virtual ~CThree(){
+        cout << "deleted3: " << this << endl;
     }
 };
 

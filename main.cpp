@@ -11,24 +11,18 @@ void decor(){
 
 int main(){
     decor();
-    CTwo a;
-    CTwo b(20, 3.14, "hi");
-    CTwo c(b);
-    CTwo d = b;
-    a.print();
-    b.print();
-    c.print();
-    d.print();
+    CThree a;
+    CThree b(10, 20, 30, "hi");
+    CThree c(b);
+    CThree d = c;
     decor();
 
     decor();
-    c.setN(40);
-    c.setD(13.5);
-    c.setS("newS");
-    cout << c.getN() << endl;
-    cout << c.getD() << endl;
-    cout << c.getS() << endl;
+    c.print();
+    c.setNum(60);
+    c.print();
     decor();
+
 
     return 0;
 }
